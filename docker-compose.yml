@@ -1,0 +1,17 @@
+# Local PostgreSQL for development. Start with:  docker compose up -d
+services:
+  db:
+    image: postgres:16
+    container_name: meetly-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: meetly
+      POSTGRES_PASSWORD: meetly
+      POSTGRES_DB: meetly
+    ports:
+      - "5432:5432"
+    volumes:
+      - meetly-pgdata:/var/lib/postgresql/data
+
+volumes:
+  meetly-pgdata:
