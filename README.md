@@ -74,13 +74,7 @@ meetly/
 └── 📚 docs/       # SRS, plan, diagrams
 ```
 
-## 🌈 Team
 
-| 🌟 Name | 🪪 ID |
-|---------|-------|
-| [Member 1] | [ID] |
-| [Member 2] | [ID] |
-| [Member 3] | [ID] |
 
 <div align="center">
 
