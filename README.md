@@ -39,26 +39,63 @@ Share your class routine, see which friends are free in your gaps, and send them
 | Login | Google Sign-In (BRAC accounts only) 🔑 |
 
 ## 🍓 Quick start
+### 🧰 What you need first
+- [Node.js](https://nodejs.org) 22 or newer
+- [Git](https://git-scm.com)
+- [PostgreSQL](https://www.postgresql.org/download/) 16 or newer (or Docker)
+- A Google OAuth **Client ID**, see [`docs/LOGIN_GUIDE.md`](docs/LOGIN_GUIDE.md)
 
+### 1. Get the code
 ```bash
-# 1. get the code
-git clone https://github.com/<your-username>/meetly.git
+git clone https://github.com/YOUR-USERNAME/meetly.git
 cd meetly
+```
 
-# 2. install
-cd backend && npm install
-cd ../frontend && npm install
-
-# 3. add your secrets (copy the example files and fill them in)
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
-
-# 4. start the database
+### 2. Set up the database
+**With PostgreSQL installed:** open *SQL Shell (psql)* and run
+```sql
+CREATE USER meetly WITH PASSWORD 'meetly';
+CREATE DATABASE meetly OWNER meetly;
+```
+**Or with Docker:**
+```bash
 docker compose up -d
+```
+The tables are created automatically when the backend starts.
 
-# 5. run it! (two terminals)
-cd backend && npm run start:dev      # API  -> http://localhost:3000
-cd frontend && npm run dev           # App  -> http://localhost:5173
+### 3. Start the backend (terminal 1)
+```bash
+cd backend
+npm install
+cp .env.example .env
+```
+Open `backend/.env` and set `JWT_SECRET` (any long random string) and `GOOGLE_CLIENT_ID`. Then:
+```bash
+npm run start:dev
+```
+You should see `Meetly API running on http://localhost:3000`.
+
+### 4. Start the frontend (terminal 2)
+```bash
+cd frontend
+npm install
+cp .env.example .env
+```
+Open `frontend/.env` and set `VITE_GOOGLE_CLIENT_ID` to the **same** Client ID. Then:
+```bash
+npm run dev
+```
+
+### 5. Open it
+Go to http://localhost:5173 and sign in with your BRAC University Google account ♡
+
+### ✅ Run the tests (optional)
+With the database running:
+```bash
+cd backend
+npm test
+```
+You should see `9 passed`.
 ```
 
 Then open http://localhost:5173 and sign in with your BRAC University Google account ♡
