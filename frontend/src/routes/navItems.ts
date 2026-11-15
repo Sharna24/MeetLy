@@ -6,7 +6,7 @@ export interface NavItem {
   icon: string;          // emoji shown in the menu
   description: string;   // what this page will do (shown on the placeholder page)
   features?: string;     // which feature numbers from the project plan live here
-  placeholder?: boolean; // true = shows "coming soon" until you build the real page
+  placeholder?: boolean;
 }
 
 export const navItems: NavItem[] = [
