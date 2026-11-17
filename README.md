@@ -64,7 +64,7 @@ Share your class routine, see which friends are free in your gaps, and send them
 
 ### 1. Get the code
 ```bash
-git clone https://github.com/sakibhossain0/MeetLy.git
+git clone https://github.com/Sharna24/MeetLy.git
 cd MeetLy
 ```
 
