@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import EntryForm from '../components/EntryForm';
 import FreeTimeList from '../components/FreeTimeList';
+import ImportPanel from '../components/ImportPanel';
 import RoutineGrid from '../components/RoutineGrid';
 import { errorMessage } from '../services/api';
 import { getFreeTime, listEntries } from '../services/routineApi';
@@ -14,6 +15,7 @@ export default function Routine() {
   const [error, setError] = useState('');
   // null = form closed, 'new' = adding a class, an entry = editing that entry
   const [editing, setEditing] = useState<RoutineEntry | 'new' | null>(null);
+  const [importing, setImporting] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
   // Ask the backend for the classes AND the free time.
@@ -35,11 +37,12 @@ export default function Routine() {
 
   // When the form opens, scroll it into view.
   useEffect(() => {
-    if (editing) formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [editing]);
+    if (editing || importing) formRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [editing, importing]);
 
   async function saved() {
     setEditing(null);
+    setImporting(false);
     await load(); // reload so the grid and free time update
   }
 
@@ -49,10 +52,21 @@ export default function Routine() {
     <div className="wide">
       <div className="page-head">
         <h1>My routine <span className="badge">{semester}</span></h1>
-        {editing === null && <button onClick={() => setEditing('new')}>+ Add class</button>}
+        {editing === null && !importing && (
+          <div className="head-actions">
+            <button className="secondary" onClick={() => setImporting(true)}>📥 Import PDF / picture</button>
+            <button onClick={() => setEditing('new')}>+ Add class</button>
+          </div>
+        )}
       </div>
 
       {error && <p className="error">{error}</p>}
+
+      {importing && (
+        <div ref={formRef}>
+          <ImportPanel existingCount={entries.length} onImported={saved} onCancel={() => setImporting(false)} />
+        </div>
+      )}
 
       {editing !== null && (
         <div ref={formRef}>
@@ -65,12 +79,15 @@ export default function Routine() {
         </div>
       )}
 
-      {entries.length === 0 && editing === null && (
+      {entries.length === 0 && editing === null && !importing && (
         <div className="panel center">
           <div className="big-emoji">📅</div>
           <h2>Add your first class</h2>
-          <p>Copy your classes from your BRAC class schedule. Meetly then finds your free time.</p>
-          <button onClick={() => setEditing('new')}>+ Add class</button>
+          <p>Import your BRAC class schedule (PDF or picture) in one step, or add classes one by one. Meetly then finds your free time.</p>
+          <div className="form-actions" style={{ justifyContent: 'center' }}>
+            <button onClick={() => setImporting(true)}>📥 Import PDF / picture</button>
+            <button className="secondary" onClick={() => setEditing('new')}>+ Add class</button>
+          </div>
         </div>
       )}
 
