@@ -40,3 +40,22 @@ export interface NewEntry {
   startMin: number;
   endMin: number;
 }
+// ---- Import from a PDF or picture ----
+export interface ImportedClass {
+  courseCode: string;
+  section: string | null;
+  faculty: string | null;
+  room: string | null;
+  type: 'class' | 'lab';
+  days: Day[];
+  startMin: number;
+  endMin: number;
+  conflict: string | null; // set when it overlaps a class already in the routine
+}
+
+export interface ImportPreview {
+  source: 'pdf' | 'image';
+  session: string | null;
+  classes: ImportedClass[];
+  warnings: string[];
+}

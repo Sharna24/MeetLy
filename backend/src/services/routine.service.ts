@@ -7,6 +7,7 @@ import { DAYS, DEFAULT_SEMESTER } from '../config/routine.config';
 import { CreateEntryDto } from '../dtos/create-entry.dto';
 import { UpdateEntryDto } from '../dtos/update-entry.dto';
 import { RoutineEntry } from '../models/routine-entry.entity';
+import { ImportConfirmDto } from '../dtos/import-confirm.dto';
 
 @Injectable()
 export class RoutineService {
@@ -92,6 +93,43 @@ export class RoutineService {
     return { ok: true };
   }
 
+  // Save many classes at once (used by the import). All or nothing:
+  // if one class clashes, nothing is saved and nothing is deleted.
+  async importMany(userId: string, dto: ImportConfirmDto): Promise<{ classes: number; entries: number }> {
+    for (const c of dto.classes) {
+      if (c.endMin <= c.startMin) throw new BadRequestException(`${c.courseCode}: end time must be after start time`);
+    }
+    return this.entries.manager.transaction(async (manager) => {
+      const repo = manager.getRepository(RoutineEntry);
+      if (dto.replace) await repo.delete({ userId, semester: this.semester });
+
+      // everything that is (or is about to be) in the routine, to check clashes against
+      const planned: RoutineEntry[] = await repo.find({ where: { userId, semester: this.semester } });
+      const rows: RoutineEntry[] = [];
+      for (const c of dto.classes) {
+        for (const day of c.days) {
+          const clash = planned.find((e) => e.dayOfWeek === day && rangesOverlap(e.startMin, e.endMin, c.startMin, c.endMin));
+          if (clash) throw this.clashError(c.courseCode, day, clash);
+          const row = repo.create({
+            userId,
+            semester: this.semester,
+            courseCode: c.courseCode,
+            section: c.section || null,
+            faculty: c.faculty || null,
+            room: c.room || null,
+            type: c.type ?? 'class',
+            dayOfWeek: day,
+            startMin: c.startMin,
+            endMin: c.endMin,
+          });
+          planned.push(row);
+          rows.push(row);
+        }
+      }
+      const saved = await repo.save(rows);
+      return { classes: dto.classes.length, entries: saved.length };
+    });
+  }
   private clashError(code: string, day: string, other: RoutineEntry) {
     return new ConflictException(
       `${code} overlaps with ${other.courseCode} on ${day} (${formatMinutes(other.startMin)} - ${formatMinutes(other.endMin)})`,

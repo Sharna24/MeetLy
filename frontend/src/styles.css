@@ -95,3 +95,20 @@ button.danger { background: #fdecea; color: #c0392b; }
 .day-name { width: 110px; font-weight: 700; }
 .chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; }
 .chip { background: rgba(181, 234, 215, .55); border-radius: 999px; padding: 3px 12px; font-size: .85rem; }
+/* ---------- Import panel ---------- */
+.head-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.head-actions button { margin-top: 0; }
+.dropzone { border: 3px dashed var(--lilac); border-radius: 18px; padding: 28px 16px; text-align: center; cursor: pointer; background: #fff7fb; }
+.dropzone.over { border-color: var(--pink); background: #fff0f4; }
+.dropzone p { margin: 6px 0; }
+.tips { padding-left: 20px; margin: 14px 0 4px; }
+.warn-list { background: #fff6e0; border: 2px solid #f4d58d; border-radius: 12px; padding: 10px 14px 10px 30px; margin: 12px 0; font-size: .88rem; }
+.import-table { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
+.import-row { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 4px 12px; margin: 0; padding: 10px 12px; border: 2px solid var(--lilac); border-radius: 14px; font-weight: 500; cursor: pointer; }
+.import-row.off { opacity: .5; }
+.import-row input { width: auto; margin: 0; }
+.import-when { text-align: right; font-size: .9rem; }
+.import-clash { grid-column: 2 / 4; color: #c0392b; font-size: .82rem; }
+.tag { background: #ffd6a5; border-radius: 999px; padding: 1px 8px; font-size: .72rem; font-weight: 700; margin-left: 6px; }
+.mode label { font-weight: 500; margin: 8px 0; }
+.mode input { width: auto; margin-right: 6px; }
