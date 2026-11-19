@@ -13,6 +13,7 @@ export default function ProtectedRoute({
   const { user, loading } = useAuth();
   if (loading) return <p className="center muted">Loading…</p>;
   if (!user) return <Navigate to="/login" replace />;
+  if (user.role === 'admin') return <Navigate to="/admin/verification" replace />;
   if (!user.profileComplete && !allowIncomplete) return <Navigate to="/setup-profile" replace />;
   return children;
 }

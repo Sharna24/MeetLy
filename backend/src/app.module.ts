@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AdminModule } from './modules/admin.module';
 import { AuthModule } from './modules/auth.module';
 import { UsersModule } from './modules/users.module';
 import { RoutineModule } from './modules/routine.module';   // add with the other imports
@@ -33,7 +34,8 @@ import { RoutineModule } from './modules/routine.module';   // add with the othe
 
     UsersModule,
     AuthModule,
-    RoutineModule
+    RoutineModule,
+    AdminModule,
   ],
 })
 export class AppModule {}

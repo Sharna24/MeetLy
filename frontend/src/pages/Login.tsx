@@ -9,7 +9,7 @@ export default function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState('');
 
-  if (!loading && user) return <Navigate to="/" replace />;
+  if (!loading && user) return <Navigate to={user.role === 'admin' ? '/admin' : '/'} replace />;
 
   return (
     <div className="card center">
@@ -22,8 +22,8 @@ export default function Login() {
           onSuccess={async (res) => {
             setError('');
             try {
-              await loginWithGoogle(res.credential!);
-              navigate('/');
+             const loggedIn: any = await loginWithGoogle(res.credential!);
+              navigate(loggedIn?.role === 'admin' ? '/admin' : '/');
             } catch (e) {
               setError(errorMessage(e, 'Sign-in failed'));
             }
