@@ -53,7 +53,11 @@ export class AuthService {
         isVerified: role === 'student',
       });
     }
+    if (user.status === 'suspended') {
+      throw new ForbiddenException('Your account has been suspended by an admin');
+    }
 
+    
     const token = await this.jwt.signAsync({ sub: user.id, role: user.role });
     return { user, token };
   }

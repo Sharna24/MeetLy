@@ -27,6 +27,11 @@ export class User {
   @Column({ default: true })
   isVerified: boolean;
 
+  
+  // Admins can suspend an account. Suspended users cannot log in.
+  @Column({ type: 'varchar', default: 'active' })
+  status: 'active' | 'suspended';
+
   @Column({ type: 'varchar', nullable: true })
   department: string | null;
 

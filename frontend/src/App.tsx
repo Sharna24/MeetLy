@@ -9,7 +9,11 @@ import SetupProfile from './pages/SetupProfile';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { navItems } from './routes/navItems';
 import Routine from './pages/Routine';
-
+import AdminLayout from './layouts/AdminLayout';
+import AccountsPage from './pages/adminpages/AccountsPage';
+import FacultyVerificationPage from './pages/adminpages/FacultyVerificationPage';
+import ReportsPage from './pages/adminpages/ReportsPage';
+import { AdminRoute } from './routes/AdminRoute';
 export default function App() {
   return (
     <Routes>
@@ -21,7 +25,20 @@ export default function App() {
           element={<ProtectedRoute allowIncomplete><SetupProfile /></ProtectedRoute>}
         />
       </Route>
-
+      {/* Admin area: admin role required, collapsible admin sidebar */}
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
+        }
+      >
+        <Route index element={<Navigate to="/admin/verification" replace />} />
+        <Route path="verification" element={<FacultyVerificationPage />} />
+        <Route path="reports" element={<ReportsPage />} />
+        <Route path="accounts" element={<AccountsPage />} />
+      </Route>
       {/* The app: login required, menu on the side */}
       <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
         <Route index element={<Home />} />
