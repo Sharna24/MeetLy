@@ -5,6 +5,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './modules/auth.module';
 import { UsersModule } from './modules/users.module';
 import { RoutineModule } from './modules/routine.module';   // add with the other imports
+import { FriendsModule } from './modules/friends.module'; 
 @Module({
   imports: [
     // Reads the .env file
@@ -33,7 +34,8 @@ import { RoutineModule } from './modules/routine.module';   // add with the othe
 
     UsersModule,
     AuthModule,
-    RoutineModule
+    RoutineModule,
+    FriendsModule
   ],
 })
 export class AppModule {}

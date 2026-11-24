@@ -5,6 +5,15 @@ import request from 'supertest';
 import { DataSource } from 'typeorm';
 import { AppModule } from '../src/app.module';
 import { GoogleVerifier, GoogleProfile } from '../src/services/google-verifier.service';
+{
+  "moduleFileExtensions": ["js", "json", "ts"],
+  "rootDir": ".",
+  "testEnvironment": "node",
+  "testRegex": ".e2e-spec.ts$",
+  "transform": {
+    "^.+\\.(t|j)s$": "ts-jest"
+  }
+}
 
 // Fake Google: these "tokens" stand in for what Google would return.
 const FAKE: Record<string, GoogleProfile> = {
@@ -28,7 +37,7 @@ describe('Login with BRAC University Google account', () => {
 
   beforeAll(async () => {
     process.env.JWT_SECRET = process.env.JWT_SECRET || 'test-secret';
-    process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgres://meetly:meetly@localhost:5432/meetly';
+    process.env.DATABASE_URL = process.env.DATABASE_URL || 'postgres://meetly:meetly@localhost:5032/meetly';  // it's only for my pc, 
     process.env.STUDENT_DOMAIN = 'g.bracu.ac.bd';
     process.env.FACULTY_DOMAIN = 'bracu.ac.bd';
     process.env.NODE_ENV = 'test';

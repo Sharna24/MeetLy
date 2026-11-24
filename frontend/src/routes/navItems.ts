@@ -12,7 +12,7 @@ export interface NavItem {
 export const navItems: NavItem[] = [
   { path: '/', label: 'Home', icon: '🏠', description: 'See which friends are free right now and in your free slots.', features: '5' },
   { path: '/routine', label: 'Routine', icon: '📅', description: 'Build your weekly routine and see your free time.', features: '1, 2', placeholder: true },
-  { path: '/friends', label: 'Friends', icon: '👯', description: 'Search people, send and accept friend requests.', features: '3', placeholder: true },
+  { path: '/friends', label: 'Friends', icon: '👯', description: 'Search people, send and accept friend requests.', features: '3' },
   { path: '/faculty', label: 'Faculty', icon: '🧑‍🏫', description: 'See which faculty members are free, and in which room.', features: '6', placeholder: true },
   { path: '/pokes', label: 'Pokes', icon: '💌', description: 'Send hangout pokes, and accept, reject or suggest another time.', features: '7, 8', placeholder: true },
   { path: '/chat', label: 'Chat', icon: '💬', description: 'Chat with your friends in real time.', features: '9', placeholder: true },

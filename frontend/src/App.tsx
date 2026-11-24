@@ -2,13 +2,14 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import AuthLayout from './layouts/AuthLayout';
 import MainLayout from './layouts/MainLayout';
-import Home from './pages/Home';
-import Login from './pages/Login';
-import Profile from './pages/Profile';
-import SetupProfile from './pages/SetupProfile';
+import Home from './View/Home';
+import Friend from './View/Friend';
+import Login from './View/Login';
+import Profile from './View/Profile';
+import SetupProfile from './View/SetupProfile';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { navItems } from './routes/navItems';
-import Routine from './pages/Routine';
+import Routine from './View/Routine';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
       {/* The app: login required, menu on the side */}
       <Route element={<ProtectedRoute><MainLayout /></ProtectedRoute>}>
         <Route index element={<Home />} />
+        <Route path="friends" element={<Friend />} />
         <Route path="profile" element={<Profile />} />
         <Route path="routine" element={<Routine />} />
         <Route path="profile" element={<Profile />} />

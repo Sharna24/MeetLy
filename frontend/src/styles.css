@@ -70,6 +70,17 @@ button.danger { background: #fdecea; color: #c0392b; }
 .day-chip.on { background: var(--pink); border-color: var(--pink); }
 .form-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
 .form-actions button { margin-top: 0; }
+.friend-section { margin-top: 24px; }
+.friend-section h2 { margin: 0 0 10px; font-size: 1.2rem; }
+.friend-search label { margin: 12px 0 6px; }
+.friend-search-row { display: flex; align-items: center; gap: 10px; }
+.friend-search-row input { flex: 1; min-width: 0; margin-top: 0; }
+.friend-search-row button { margin-top: 0; }
+.friend-list { display: flex; flex-direction: column; gap: 8px; }
+.friend-item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 12px; border: 1px solid #eee6f7; border-radius: 12px; }
+.friend-item .row { min-width: 0; margin: 0; }
+.friend-details { min-width: 0; }
+.friend-item > button { flex-shrink: 0; margin-top: 0; }
 
 .rgrid-wrap { overflow-x: auto; }
 .rgrid { min-width: 760px; }
