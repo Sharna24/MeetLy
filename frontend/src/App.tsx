@@ -2,14 +2,14 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import ComingSoon from './components/ComingSoon';
 import AuthLayout from './layouts/AuthLayout';
 import MainLayout from './layouts/MainLayout';
-import Home from './View/Home';
-import Friend from './View/Friend';
-import Login from './View/Login';
-import Profile from './View/Profile';
-import SetupProfile from './View/SetupProfile';
+import Home from './Pages/Home';
+import Friend from './Pages/Friend';
+import Login from './Pages/Login';
+import Profile from './Pages/Profile';
+import SetupProfile from './Pages/SetupProfile';
 import ProtectedRoute from './routes/ProtectedRoute';
 import { navItems } from './routes/navItems';
-import Routine from './View/Routine';
+import Routine from './Pages/Routine';
 
 export default function App() {
   return (
