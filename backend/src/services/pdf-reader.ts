@@ -7,10 +7,9 @@ const g = globalThis as any;
 g.DOMMatrix ??= class {};
 g.Path2D ??= class {};
 
-// pdf.js is the PDF engine inside Firefox. We use the "legacy" build because it works with
-// the CommonJS style that NestJS uses.
+// pdf.js is the PDF engine inside Firefox. The legacy build is distributed as an ESM file.
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const pdfjs = require('pdfjs-dist/legacy/build/pdf.js');
+const pdfjs = require('pdfjs-dist/legacy/build/pdf.mjs');
 
 const MAX_PAGES = 3;
 
